@@ -1,5 +1,5 @@
 
-# Goat.tf version 0.009382476217203228
+# Goat.tf version 0.5759771236832774
 resource "aws_s3_bucket" "flowbucket" {
 bucket        = "${local.resource_prefix.value}-flowlogs"
 force_destroy = true
@@ -14,9 +14,14 @@ target_prefix = "log/flowbucket"
 }
 resource "aws_s3_bucket" "flowbucket-2" {
 bucket        = "${local.resource_prefix.value}-flowlogs-2"
+acl           = "public-read"
 force_destroy = true
 tags = {
 Name        = "${local.resource_prefix.value}-flowlogs-2"
 Environment = local.resource_prefix.value
+}
+logging {
+target_bucket = "${aws_s3_bucket.logs.id}"
+target_prefix = "log/flowbucket"
 }
 }
