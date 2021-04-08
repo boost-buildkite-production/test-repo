@@ -1,5 +1,5 @@
 
-# Goat.tf version 0.3969293292546454
+# Goat.tf version 0.9882009299486458
 resource "aws_s3_bucket" "flowbucket" {
 bucket        = "${local.resource_prefix.value}-flowlogs"
 force_destroy = true
@@ -10,6 +10,14 @@ Environment = local.resource_prefix.value
 logging {
 target_bucket = "${aws_s3_bucket.logs.id}"
 target_prefix = "log/flowbucket"
+}
+server_side_encryption_configuration {
+rule {
+apply_server_side_encryption_by_default {
+kms_master_key_id = aws_kms_key.mykey.arn
+sse_algorithm     = "aws:kms"
+}
+}
 }
 }
 resource "aws_s3_bucket" "flowbucket-2" {
@@ -23,5 +31,13 @@ Environment = local.resource_prefix.value
 logging {
 target_bucket = "${aws_s3_bucket.logs.id}"
 target_prefix = "log/flowbucket"
+}
+server_side_encryption_configuration {
+rule {
+apply_server_side_encryption_by_default {
+kms_master_key_id = aws_kms_key.mykey.arn
+sse_algorithm     = "aws:kms"
+}
+}
 }
 }
