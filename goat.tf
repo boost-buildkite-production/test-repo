@@ -1,11 +1,15 @@
 
-# Goat.tf version 0.759966475928401
+# Goat.tf version 0.0506308026819402
 resource "aws_s3_bucket" "flowbucket" {
 bucket        = "${local.resource_prefix.value}-flowlogs"
 force_destroy = true
 tags = {
 Name        = "${local.resource_prefix.value}-flowlogs"
 Environment = local.resource_prefix.value
+}
+logging {
+target_bucket = "${aws_s3_bucket.logs.id}"
+target_prefix = "log/flowbucket"
 }
 }
 resource "aws_s3_bucket" "flowbucket-2" {
