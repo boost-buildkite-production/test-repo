@@ -1,6 +1,6 @@
 
 				// we want the content to have some randomness to be able to push continuously
-				var version1 = 0.9351779636141178
+				var version1 = 0.23381878637074927
 		
 				var express = require("express");
 				var app = express();
